@@ -1,6 +1,8 @@
 package de.freerider.repository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Component;
@@ -35,18 +37,26 @@ class CustomerRepository implements CrudRepository<Customer, String> {
 	@Override
 	public <S extends Customer> Iterable<S> saveAll(Iterable<S> entities) {
 		// TODO Auto-generated method stub
-		return null;
+		List<S> result = new ArrayList<S>();
+
+		for (S entity : entities) {
+			result.add(save(entity));
+		}
+
+		return result;
 	}
 
 	@Override
 	public Optional<Customer> findById(String id) {
 		// TODO Auto-generated method stub
-		return null;
+		
+		return ((CrudRepository<Customer, String>) map).findById(id);
 	}
 
 	@Override
 	public boolean existsById(String id) {
 		// TODO Auto-generated method stub
+		
 		return false;
 	}
 
@@ -71,7 +81,7 @@ class CustomerRepository implements CrudRepository<Customer, String> {
 	@Override
 	public void deleteById(String id) {
 		// TODO Auto-generated method stub
-		
+		((CrudRepository<Customer, String>) map).deleteById(id);
 	}
 
 	@Override
